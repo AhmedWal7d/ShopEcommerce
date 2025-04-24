@@ -28,7 +28,7 @@ const ResetPassword = () => {
     handleSubmit(onSubmit)();
   };
 
-  const { isLoading, isError } = useSelector((state: any) => state.resetPassword)
+  const { isLoading } = useSelector((state: any) => state.resetPassword)
 
 
   return (
@@ -39,7 +39,6 @@ const ResetPassword = () => {
           Reset Password
           </h1>
         </div>
-
         <div className="p-6">
           {isLoading ? <div className="flex justify-center">
 
