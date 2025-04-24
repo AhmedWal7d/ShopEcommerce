@@ -15,15 +15,13 @@ export default function Page() {
     const [orders, setOrders] = useState<any[]>([]);
     const { isloading }: any = useSelector<any>((state: any) => state.favoriteproducts);
 
-    // useEffect(() => {
       async function fetchOrders() {
         const { payload }: any = await dispatch<any>(getAllfavoriteproduct());
         setOrders(payload?.data);  
         console.log("Ahmmmmmmm" , payload);
         
       }
-    //   fetchOrders();
-    // }, [dispatch]);
+
 
     useEffect(() => {
       fetchOrders()

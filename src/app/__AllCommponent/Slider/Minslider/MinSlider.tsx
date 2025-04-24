@@ -2,7 +2,6 @@
 
 import Slider from "react-slick";
 import Image from "next/image";
-import img1 from "../Minslider/../../../../../public/slider1.webp";
 import img2 from '../../AllimgApp/slider1.png'
 import img3 from '../../AllimgApp/slider3.png'
 import img4 from '../../AllimgApp/slider4.png'

@@ -15,7 +15,7 @@ export default function Page() {
                 setOrders(payload.data)
             }
             fetchOrders()
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="p-6 mt-20">
