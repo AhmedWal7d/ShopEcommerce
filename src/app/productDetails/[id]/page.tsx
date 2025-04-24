@@ -96,11 +96,8 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
       
 
     return (
-        <div className=" mx-auto px-4 py-8 bg-gray-100 ">
-            <Head>
-                <title>{"Default Title"}</title>
-                <meta name="description" content={data?.description || "Default description"} />
-            </Head>
+        <div className=" mx-auto px-4 mt-10 py-8 bg-gray-100 ">
+         
 
             {isloading?.isloading ? <div className='flex justify-center items-center'>
                 <BallTriangle
@@ -124,7 +121,7 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
                     <span className='text-teal-600 mt-1'>
                         Pan Sets</span>
                     <FiChevronLeft className="w-4 h-4 text-teal-600  mt-1" />
-                    <span className='text-gray-400 font-bold mt-1'>  {data?.title} </span>
+                    <span className='text-gray-400 font-bold mt-1'>  {data?.title.slice(1 , 50)} </span>
                 </nav>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">

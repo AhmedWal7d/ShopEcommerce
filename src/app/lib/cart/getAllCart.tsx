@@ -44,7 +44,7 @@ export const getAllcart = createAsyncThunk(
   }
 )
 
-
+// ✅ Delete from Cart
 export const Deletecart = createAsyncThunk(
   'cart/Deletecart',
   async (id: string, thunkAPI) => {
@@ -75,7 +75,7 @@ export const Deletecart = createAsyncThunk(
   }
 )
 
-
+// ✅ Update Cart Item
 export const Updatecartitem = createAsyncThunk(
   'cart/Updatecartitem',
   async ({ id, count }: { id: string; count: number }, thunkAPI) => {
@@ -107,7 +107,8 @@ export const Updatecartitem = createAsyncThunk(
     }
   }
 )
-
+// ✅ Payment Cart Item
+// ✅ Payment Cart Items
 export const paymentcartitem = createAsyncThunk(
   'cart/paymentcartitem',
   async (
@@ -179,10 +180,10 @@ const cartSlice = createSlice({
         state.isLoading = false
         const deletedId = action.payload
         console.log("Before Delete:", state.cartData)
-        if (state.cartData && Array.isArray(state.cartData)) {
-          state.cartData = state.cartData?.filter((item: any) => item._id !== deletedId)
-          console.log("After Delete:", state.cartData)
-        }
+        // if (state.cartData && Array.isArray(state.cartData)) {
+        //   // state.cartData = state.cartData.filter((item: any) => item._id !== deletedId)
+        //   console.log("After Delete:", state.cartData)
+        // }
       })
       
       .addCase(Deletecart.rejected, (state, action) => {

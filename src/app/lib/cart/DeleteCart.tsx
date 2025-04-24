@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import Cookies from 'js-cookie'
 
 const initialState = {
-  cartData: null,
+  cartData: [] as any[], // 👈 هذا يحل المشكلة بسرعة
   isLoading: false,
   isError: null as string | null,
 }

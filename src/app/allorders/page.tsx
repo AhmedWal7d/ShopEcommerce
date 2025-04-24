@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { getonegetAllOrders } from '../lib/getAllOrders/getAllOrders'
 
 export default function Page() {
-    const dispatch = useDispatch()
+    const dispatch:any = useDispatch<any>()
     const [orders, setOrders] = useState<any[]>([])
 
 

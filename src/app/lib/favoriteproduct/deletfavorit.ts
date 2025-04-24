@@ -25,8 +25,12 @@ const initialState: CounterState = {
 export let getAlldeletfavorit = createAsyncThunk(
   "deletfavorit/getAlldeletfavorit",
   async () => {
+    
     let response = await fetch(apiRoutes.favoriteproduct.list, {
-      headers: { token },
+      headers: {
+        'Content-Type': 'application/json',
+        token: cookies.get('token') || '',
+      }
     });
     let data = await response.json();
     console.log(data);

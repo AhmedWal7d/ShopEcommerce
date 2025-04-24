@@ -21,7 +21,7 @@ export let getAllgetAllOrders = createAsyncThunk('getAllOrders/getAllgetAllOrder
 // Update getonegetAllOrders to accept an id and fetch the specific getAllOrders
 export let getonegetAllOrders = createAsyncThunk(
     'getAllOrders/getOnegetAllOrders',
-    async (id: string) => { // id parameter
+    async () => { // id parameter
         let response = await fetch(`${apiRoutes.getAllOrderss.list}`) // Use the id in the API request
         let data = await response.json()
         return data
