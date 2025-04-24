@@ -24,17 +24,15 @@ interface resetPasswordState {
   isError: string | null
 }
 
-// ========= Initial State =========
 const initialState: resetPasswordState = {
   userData: null,
   isLoading: false,
   isError: null,
 }
 
-// ========= Thunk =========
 export const resetPasswordUser = createAsyncThunk<
   UserData,
-  { email: string; newPassword: string } // arg type (المطلوب)
+  { email: string; newPassword: string } 
 >(
   'auth/resetPassword',
   async ({ email, newPassword }, thunkAPI) => {
@@ -52,14 +50,15 @@ export const resetPasswordUser = createAsyncThunk<
       }
 
       toast.success(data?.message || 'Reset password successful')
-      // window.location.href = '/login'
 
       return data
-    } catch (error: any) {
-      const errorMessage = error?.message || 'حدث خطأ أثناء تغيير كلمة المرور'
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'حدث خطأ أثناء تغيير كلمة المرور'
       toast.error(errorMessage)
       return thunkAPI.rejectWithValue(errorMessage)
     }
+    
   }
 )
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BallTriangle } from 'react-loader-spinner';
 import { resetPasswordUser } from "../lib/ResetPassword/ResetPassword";
+import { AppDispatch } from "../lib/store";
 
 type LoginFormInputs = {
   email: string;
@@ -16,7 +17,7 @@ const ResetPassword = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
 
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     console.log("Submitting Login Data: ", data);
