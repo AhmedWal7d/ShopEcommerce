@@ -1,26 +1,61 @@
 @import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cusstom_color: oklch(60% 0.118 184.704);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.slick-next , .slick-arrow {
+    background-color: transparent !important;
+    border: 1px solid var(--cusstom_color) !important;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 25;
+}
+.slick-next:before {
+    content: '\276F' !important; 
+    color: var(--cusstom_color) !important;
+    font-size: 25px !important;
+}
+.slick-arrow:before {
+    content: '\276E' !important; 
+    color: var(--cusstom_color) !important;
+    font-size: 25px !important;
+}
+.slick-next:hover , .slick-arrow:hover {
+    background-color: var(--cusstom_color) !important;
+    z-index: 2555;
+}
+.slick-next:hover:before , .slick-arrow:hover:before {
+    color: white !important;
+}
+.sliderhome{
+    height: 70vh;
+}
+.bunnerimg{
+    height: 60vh !important;
+    /* width: 50vh !important; */
+}
+.slick-dots li.slick-active button:before{
+    color: oklch(51.1% .096 186.391) !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (max-width: 768px) {
+    .slick-prev,
+    .slick-next{
+      display: none !important;
+    }
+    .sliderhome{
+        height: 50vh;
+    }
+    .imgpoients{
+        width: 50%;
+    }
+
+    .himgbaner{
+        height: 30vh !important;
+    }
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+  
