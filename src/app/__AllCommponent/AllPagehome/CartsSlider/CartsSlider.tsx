@@ -7,32 +7,67 @@ import { getAllproduct } from '@/app/lib/products/Products'
 import Slider from 'react-slick'
 import Link from 'next/link'
 import PostHeart from '@/app/heart/postheard'
+import { AppDispatch, RootState } from '@/app/lib/store'
 
 export default function CartsSlider() {
-  const dispatch: any = useDispatch()
-  const { allproduct } = useSelector((state: any) => state.product)
 
-  useEffect(() => {
-    dispatch(getAllproduct())
-  }, [dispatch])
 
-  function SampleNextArrow(props: any) {
+
+ interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  ratingsAverage: number;
+  images: string[];
+}
+
+const dispatch: AppDispatch = useDispatch();
+const { allproduct } = useSelector((state: RootState) => state.product);
+
+useEffect(() => {
+  dispatch(getAllproduct());
+}, [dispatch]);
+
+  // function SampleNextArrow(props: any) {
+  //   const { className, style, onClick } = props;
+  //   return (
+  //     <div
+  //       className={className}
+  //       style={{ ...style, display: "block", background: "red", color: "red" }}
+  //       onClick={onClick}
+  //     />
+  //   );
+  // }
+
+  // function SamplePrevArrow(props: any) {
+  //   const { className, style, onClick } = props;
+  //   return (
+  //     <div
+  //       className={className}
+  //       style={{ ...style, display: "block", background: "green" }}
+  //       onClick={onClick}
+  //     />
+  //   );
+  // }
+  
+  function SampleNextArrow(props: { className?: string; style?: React.CSSProperties; onClick?: () => void }) {
     const { className, style, onClick } = props;
     return (
       <div
         className={className}
-        style={{ ...style, display: "block", background: "red", color: "red" }}
+        style={{ ...style, display: 'block', background: 'red', color: 'red' }}
         onClick={onClick}
       />
     );
   }
 
-  function SamplePrevArrow(props: any) {
+  function SamplePrevArrow(props: { className?: string; style?: React.CSSProperties; onClick?: () => void }) {
     const { className, style, onClick } = props;
     return (
       <div
         className={className}
-        style={{ ...style, display: "block", background: "green" }}
+        style={{ ...style, display: 'block', background: 'green' }}
         onClick={onClick}
       />
     );
@@ -82,7 +117,7 @@ export default function CartsSlider() {
 
       <div className=' mx-auto container bg-gray-100 mt-10'>
         <Slider {...settings}>
-          {allproduct?.map((product: any) => (
+          {allproduct?.map((product: Product) => (
             <div className="px-2" key={product?.id}>
               <div className="rounded-2xl pb-3 px-4 shadow-sm bg-white text-sm font-sans flex flex-col justify-between">
                 <div className="flex items-start justify-between p-4">
