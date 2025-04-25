@@ -4,17 +4,17 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,  // تم تعطيل الوضع الصارم
+    "strict": false,  
     "noEmit": true,
     "esModuleInterop": true,
-    "noImplicitAny": false,  // يسمح باستخدام any دون تحذيرات
+    "noImplicitAny": false, 
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noEmitOnError": false,  // يسمح بإصدار الأكواد حتى في حالة وجود أخطاء
+    "noEmitOnError": false,  
     "plugins": [
       {
         "name": "next"
