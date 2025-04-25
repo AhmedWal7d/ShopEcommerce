@@ -21,11 +21,10 @@ export default function Navbar() {
   const dispatch = useDispatch<any>();
 
   useEffect(() => {
-    // الحصول على الـ token و username من الكوكيز
     setToken(Cookies.get('token') || null);
     setUsername(Cookies.get('useName') || null);
     setIsLoading(false);
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     async function getCartData() {
@@ -54,7 +53,7 @@ export default function Navbar() {
       getCartData();
       getFavoriteData();
     }
-  }, [token, username]);
+  }, [token, username , dispatch]);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = event.target.value;
