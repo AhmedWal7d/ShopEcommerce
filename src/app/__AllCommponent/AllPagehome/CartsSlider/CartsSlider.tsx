@@ -1,9 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
 
-import productImg from '../../AllimgApp/slider1.png'
-import Image from 'next/image'
-import { BsSuitHeart } from 'react-icons/bs'
 import { CiStar } from 'react-icons/ci'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllproduct } from '@/app/lib/products/Products'
