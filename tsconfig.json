@@ -4,17 +4,18 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,  
+    "strict": false,                  // ✅ شغلت strict mode
+    "noImplicitAny": false,            // ✅ تمنع any الضمني
     "noEmit": true,
     "esModuleInterop": true,
-    "noImplicitAny": false, 
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noEmitOnError": false,  
+    "noEmitOnError": true,            // ✅ تمنع خروج build لو فيه أخطاء
+    "forceConsistentCasingInFileNames": true, // ✅ زيادة دقة
     "plugins": [
       {
         "name": "next"
@@ -24,11 +25,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

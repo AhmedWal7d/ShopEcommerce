@@ -1,8 +1,12 @@
 
 'use client'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import AuthLayout from '../layouts/Authlauout/layout'
-export default function layout({ children }: any) {
+type Props = {
+    children: ReactNode
+  }
+  
+export default function layout({ children }: Props) {
     return (
         <AuthLayout>
             {children}

@@ -5,9 +5,7 @@ import React, { use, useEffect, useState } from 'react';
 import {
     FiHeart,
     FiShare2,
-    FiClock,
-    FiShoppingBag,
-    FiCreditCard,
+
     FiChevronLeft
 } from 'react-icons/fi';
 import { IoCartSharp } from 'react-icons/io5';
@@ -15,7 +13,6 @@ import img from '../../../../src/app/__AllCommponent/AllimgApp/cartimg.png'
 import img2 from '../../../../src/app/__AllCommponent/AllimgApp/cartimg2.png'
 import img3 from '../../../../src/app/__AllCommponent/AllimgApp/cartimg3.png'
 import img4 from '../../../../src/app/__AllCommponent/AllimgApp/cartimg4.png'
-import img5 from '../../../../src/app/__AllCommponent/AllimgApp/cartimg5.png'
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { getoneproduct } from '@/app/lib/products/Products';

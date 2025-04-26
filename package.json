@@ -1,15 +1,12 @@
 {
-  "homepage": "https://AhmedWal7d.github.io/testpro",
   "name": "store-book",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build || true",
+   "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.1",
