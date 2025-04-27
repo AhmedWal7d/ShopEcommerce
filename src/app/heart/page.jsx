@@ -10,36 +10,17 @@ import { AppDispatch, RootState } from '../lib/store'
 import { ThunkAction } from 'redux-thunk'
 import { UnknownAction } from 'redux'
 
-interface Product {
-  id: string;
-  title: string;
-  description: string;
-  imageCover: string;
-  price: number;
-  ratingsAverage: number;
-  // Add other product properties as needed
-}
 
-interface FavoriteResponse {
-  payload?: {
-    data?: Product[];
-  };
-}
 
 export default function Page() {
-    const dispatch = useDispatch<AppDispatch>();
-    const [orders, setOrders] = useState<Product[]>([]);
-    const isloading = useSelector((state: RootState) => state.favoriteproducts?.isloading);
+    const dispatch = useDispatch();
+    const [orders, setOrders] = useState([]);
+    const isloading = useSelector((state) => state.favoriteproducts?.isloading);
 
     const fetchOrders = useCallback(async () => {
       try {
         const response = await dispatch(
-          getAllfavoriteproduct() as unknown as ThunkAction<
-            Promise<FavoriteResponse>,
-            RootState,
-            undefined,
-            UnknownAction
-          >
+          getAllfavoriteproduct() 
         );
         setOrders(response.payload?.data || []);  
       } catch (error) {
@@ -51,7 +32,7 @@ export default function Page() {
       fetchOrders();
     }, [fetchOrders]);
 
-    const handleDelete = (deletedProductId: string) => {
+    const handleDelete = (deletedProductId) => {
       setOrders((prevOrders) => prevOrders.filter((product) => product.id !== deletedProductId));
     };
   

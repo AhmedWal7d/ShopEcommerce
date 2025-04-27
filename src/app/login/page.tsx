@@ -82,6 +82,7 @@ const Login = () => {
           {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
         </div>
       
+        {/* حقل كلمة المرور */}
         <div className="space-y-4 ">
           <div className="relative">
             <input
@@ -169,7 +170,7 @@ const Login = () => {
         </button>}
       
         <div className="text-gray-600 text-sm pb-5">
-          Don't have an account?
+          Dont have an account?
           <Link href="/register" className="text-teal-600 hover:text-teal-800 hover:underline">
             Create a new account
           </Link>
