@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BallTriangle } from 'react-loader-spinner';
 import { paymentcartitem } from "../lib/cart/getAllCart";
+import { AppDispatch, RootState } from "../lib/store";
 
 type PaymentFormInputs = {
   details: string;
@@ -13,8 +14,8 @@ type PaymentFormInputs = {
 
 const PaymentPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<PaymentFormInputs>();
-  const dispatch: any = useDispatch();
-  const { isLoading, isError } = useSelector((state: any) => state.login);
+  const dispatch: AppDispatch = useDispatch();
+  const { isLoading, isError } = useSelector((state:RootState) => state.login);
 
   const onSubmit: SubmitHandler<PaymentFormInputs> = async (data) => {
     const cartId = "6529668a728ca75a7ac67a9c";

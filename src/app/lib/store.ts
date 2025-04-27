@@ -10,7 +10,6 @@ import { resetPasswordReducer } from './ResetPassword/ResetPassword'
 import { verifyResetCodesReducer } from './verifyResetCode/verifyResetCode'
 import { addToCartReducer } from './cart/cart'
 import { cartReducer } from './cart/getAllCart'
-import { DeletecartReducer } from './cart/DeleteCart'
 import { getAllOrdersReducer } from './getAllOrders/getAllOrders'
 import { favoriteproductReducer } from './favoriteproduct/favorite'
 import { loadingReducer } from './Loading/loading.ts'
@@ -29,7 +28,6 @@ export const store = configureStore({
     getallorder:getAllOrdersReducer,
     favoriteproducts: favoriteproductReducer,
     loading: loadingReducer,
-    // deletecart:DeletecartReducer
   },
 })
 

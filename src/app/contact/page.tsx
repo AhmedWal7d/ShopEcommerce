@@ -1,5 +1,7 @@
 // pages/contact.tsx
 
+import Image from "next/image";
+import imgcontact from '../__AllCommponent/AllimgApp/imgcontact.jpg'
 
 export default function Contact() {
 
@@ -80,7 +82,7 @@ export default function Contact() {
                 </form>
                 <div className="min-h-screen mx-auto">
 
-                    <img className="h-[600px]  mt-5" src="https://previews.123rf.com/images/niroworld/niroworld1310/niroworld131000012/23164115-website-and-internet-contact-us-page-concept-with-icons-on-four-blue-hanged-tags-on-white-background.jpg" />
+                    <Image width={600} height={100} alt="" className="h-[600px]  mt-5" src={imgcontact} />
                 </div>
 
 

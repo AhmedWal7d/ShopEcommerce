@@ -9,50 +9,36 @@ import imgshop from '../__AllCommponent/AllimgApp/cartshop.jpg'
 import Image from "next/image";
 import { toast } from "react-toastify";
 export default function CartPage() {
-  interface typedata {
-    id: string;
-    count: number;
-    price: number;
-    products: any;
-    totalCartPrice: any;
-    product: {
-      title: string;
-      imageCover: string;
 
-      totalCartPrice: string;
-      id: string;
-    };
-  }
-
-  const [data, setData] = useState<any>([]);
-  const dispatch = useDispatch<any>();
+  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
   const [totalCartPrice, settotalCartPrice] = useState(0)
 
-  const { isLoading }: any = useSelector((state: any) => state?.getcart);
+  const { isLoading } = useSelector((state) => state?.getcart);
 
   useEffect(() => {
     async function getDataCart() {
-      const { payload }: any = await dispatch(getAllcart());
+      const { payload } = await dispatch(getAllcart());
       setData(payload?.items?.data || []);
       settotalCartPrice(payload?.items?.data.totalCartPrice)
     }
     getDataCart();
   }, [dispatch]);
 
-  async function deleteItem(id: string) {
+  async function deleteItem(id) {
     await dispatch(Deletecart(id));
-    const { payload }: any = await dispatch(getAllcart());
+    const { payload } = await dispatch(getAllcart());
     settotalCartPrice(payload?.items?.data.totalCartPrice)
 
 
     setData(payload?.items?.data || []);
   }
 
-  async function updateqte(id: string, count: number) {
+  async function updateqte(id, count) {
     try {
       await dispatch(Updatecartitem({ id, count }));
   
-      const { payload }: any = await dispatch(getAllcart());
+      const { payload } = await dispatch(getAllcart());
       setData(payload?.items?.data || []);
       settotalCartPrice(payload?.items?.data?.totalCartPrice || 0);
     } catch (error) {
@@ -81,7 +67,7 @@ export default function CartPage() {
                     />
                   </div>
                 ) : data?.products?.length > 0 ? (
-                  data?.products?.map((product: typedata) => (
+                  data?.products?.map((product) => (
                     <div key={product?.product.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
                       <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                         <img className="h-20 w-20 dark:hidden" src={product?.product?.imageCover} alt={product?.product?.title} />

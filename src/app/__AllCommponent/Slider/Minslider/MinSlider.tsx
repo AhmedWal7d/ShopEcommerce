@@ -14,7 +14,7 @@ import img9 from '../../AllimgApp/slider9.png'
 export default function MinSlider() {
 
     
-function SampleNextArrow(props:any) {
+function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
       <div
@@ -25,7 +25,7 @@ function SampleNextArrow(props:any) {
     );
   }
   
-  function SamplePrevArrow(props:any) {
+  function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
       <div

@@ -4,7 +4,7 @@ import apiRoutes from '@/app/__AllCommponent/utils/apiRoutes'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import Cookies from 'js-cookie'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 // ========= Interfaces =========
 interface CartItem {
@@ -19,7 +19,7 @@ interface CartData {
 interface AddToCartState {
   cartData: CartData | null
   isLoading: boolean
-  isError: string | {} | null
+  isError: string | null // Removed empty object type
 }
 
 // ========= Initial State =========
@@ -32,7 +32,10 @@ const initialState: AddToCartState = {
 // ========= Thunk =========
 export const addToCart = createAsyncThunk<
   CartData,
-  { productId: string }
+  { productId: string },
+  {
+    rejectValue: string
+  }
 >(
   'cart/addToCart',
   async ({ productId }, thunkAPI) => {
@@ -46,7 +49,7 @@ export const addToCart = createAsyncThunk<
     }
 
     try {
-      const res = await axios.post(
+      const res = await axios.post<CartData>(
         `${apiRoutes.addtocart.list}`,
         { productId },
         { headers }
@@ -62,16 +65,17 @@ export const addToCart = createAsyncThunk<
         items: res.data.items,
         message: res.data.message,
       }
-    } catch (error: any) {
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message?: string }>
       const errorMessage =
-        error?.response?.data?.message || 'An error occurred while adding to the cart'
+        axiosError.response?.data?.message || 'An error occurred while adding to the cart'
       toast.error(errorMessage)
       return thunkAPI.rejectWithValue(errorMessage)
     }
   }
 )
-// ========= Slice =========
 
+// ========= Slice =========
 const addToCartSlice = createSlice({
   name: 'cart',
   initialState,

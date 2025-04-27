@@ -6,8 +6,8 @@ import { loginUser } from "../lib/login/login";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BallTriangle } from 'react-loader-spinner';
 import Link from "next/link";
+import { AppDispatch, RootState } from "../lib/store";
 
-// تعريف نوع البيانات للـ Form
 type LoginFormInputs = {
   email: string;
   password: string;
@@ -18,10 +18,9 @@ const Login = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
 
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    console.log("Submitting Login Data: ", data);
     dispatch(loginUser(data));
   };
 
@@ -29,7 +28,7 @@ const Login = () => {
     handleSubmit(onSubmit)();
   };
 
-  const { isLoading, isError } = useSelector((state: any) => state.login)
+  const { isLoading } = useSelector((state: RootState) => state.login)
 
 
   return (
@@ -51,8 +50,8 @@ const Login = () => {
               radius={5}
               color="oklch(60% .118 184.704)"
               ariaLabel="ball-triangle-loading"
-              wrapperStyle={{}}
-              // wrapperClass=""
+            
+             
               visible={true}
             /></div> :
 
@@ -83,7 +82,6 @@ const Login = () => {
           {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
         </div>
       
-        {/* حقل كلمة المرور */}
         <div className="space-y-4 ">
           <div className="relative">
             <input
@@ -162,7 +160,7 @@ const Login = () => {
           </Link>
         </div>
       
-        {isLoading ? "0" : <button
+        {isLoading ? "login" : <button
           type="submit"
           onClick={handleLoginClick}
           className="w-full bg-gradient-to-r from-teal-600 to-teal-600 cursor-pointer hover:from-teal-700 hover:to-indigo-700 text-white py-2 rounded-lg transition-all duration-200 transform hover:scale-[1.02]"

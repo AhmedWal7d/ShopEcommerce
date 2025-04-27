@@ -1,25 +1,12 @@
 // counterSlice.ts
 "use client";
 import apiRoutes from "@/app/__AllCommponent/utils/apiRoutes";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import cookies from "js-cookie";
 import { toast } from "react-toastify";
 
-export interface CounterState {
-  alldeletfavorit: [];
-  isloading: boolean;
-  isError: any;
-  onedeletfavorit: any; 
-}
 
-let token = cookies.get("token");
 
-const initialState: CounterState = {
-  alldeletfavorit: [],
-  isloading: false,
-  isError: null,
-  onedeletfavorit: null,
-};
 
 
 export let getAlldeletfavorit = createAsyncThunk(
@@ -42,7 +29,7 @@ export let getAlldeletfavorit = createAsyncThunk(
 // Update getonedeletfavorit to accept an id and fetch the specific deletfavorit
 export let getonedeletfavorit = createAsyncThunk(
     "deletfavorit/postdeletfavorit",
-    async (productId: string, thunkAPI) => {
+    async (productId, thunkAPI) => {
       try {
         const response = await fetch(apiRoutes.favoriteproduct.list, {
           method: 'POST',
@@ -67,7 +54,7 @@ export let getonedeletfavorit = createAsyncThunk(
         const data = await response.json();
         return data;
   
-      } catch (error: any) {
+      } catch (error) {
         toast.error(error.message)
         return thunkAPI.rejectWithValue(error.message || 'حدث خطأ غير متوقع');
       }

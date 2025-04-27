@@ -11,15 +11,14 @@ import { getAllfavoriteproduct } from '@/app/lib/favoriteproduct/favorite';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
+  const [token, setToken] = useState(null);
+  const [username, setUsername] = useState(null);
   const [countitem, setCountItem] = useState(0);
   const [favorite, setFavorite] = useState(0);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-
-  const dispatch = useDispatch<any>();
-
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     setToken(Cookies.get('token') || null);
     setUsername(Cookies.get('useName') || null);
@@ -30,7 +29,7 @@ export default function Navbar() {
     async function getCartData() {
       setIsLoading(true);
       try {
-        const { payload }: any = await dispatch(getAllcart());
+        const { payload } = await dispatch(getAllcart());
         setCountItem(payload?.items?.numOfCartItems || 0);
       } catch (err) {
         console.error(err);
@@ -38,12 +37,10 @@ export default function Navbar() {
         setIsLoading(false);
       }
     }
-
     async function getFavoriteData() {
       try {
-        const { payload }: any = await dispatch(getAllfavoriteproduct());
+        const { payload } = await dispatch(getAllfavoriteproduct());
         setFavorite(payload?.count || 0);
-        console.log(payload);
       } catch (err) {
         console.error(err);
       }
@@ -55,7 +52,7 @@ export default function Navbar() {
     }
   }, [token, username , dispatch]);
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (event) => {
     const selectedOption = event.target.value;
     if (selectedOption === 'logout') {
       Cookies.remove('token');

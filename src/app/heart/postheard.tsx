@@ -4,27 +4,46 @@ import { useDispatch } from 'react-redux'
 import { getonefavoriteproduct } from '../lib/favoriteproduct/favorite'
 import { CiHeart } from 'react-icons/ci'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AppDispatch } from '../lib/store'
+import { ThunkAction } from 'redux-thunk'
+import { UnknownAction } from 'redux'
+
+interface FavoriteProductResponse {
+  payload?: {
+    data?: unknown; // Replace with your actual response data type
+  };
+}
 
 interface Props {
-  productId: string
-  onProductData?: (data: any) => void
+  productId: string;
+  onProductData?: (data: FavoriteProductResponse['payload']) => void;
 }
 
 export default function PostHeart({ productId, onProductData }: Props) {
-  const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch<AppDispatch>();
+  const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
     try {
-      setLoading(true)
-      const { payload }: any = await dispatch<any>(getonefavoriteproduct(productId))
-      onProductData?.(payload?.data)
+      setLoading(true);
+      const response = await dispatch(
+        getonefavoriteproduct(productId) as unknown as ThunkAction<
+          Promise<FavoriteProductResponse>,
+          unknown,
+          undefined,
+          UnknownAction
+        >
+      );
+      
+      if (onProductData && response.payload) {
+        onProductData(response.payload);
+      }
     } catch (error) {
-      console.error("Error in PostHeart:", error)
+      console.error("Error in PostHeart:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <button
@@ -38,5 +57,5 @@ export default function PostHeart({ productId, onProductData }: Props) {
         <CiHeart size={30} />
       )}
     </button>
-  )
+  );
 }

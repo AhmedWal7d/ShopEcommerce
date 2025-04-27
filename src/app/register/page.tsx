@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { BallTriangle } from 'react-loader-spinner';
 import { registerUser } from "../lib/register/register";
 import Link from "next/link";
+import { AppDispatch, RootState } from "../lib/store";
 
 type RegisterFormInputs = {
   name: string;
@@ -18,8 +19,8 @@ type RegisterFormInputs = {
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const dispatch: any = useDispatch();
-  const { isLoading, isError } = useSelector((state: any) => state.rigster);
+  const dispatch: AppDispatch = useDispatch();
+  const { isLoading } = useSelector((state: RootState) => state.rigster);
 
   const {
     register,

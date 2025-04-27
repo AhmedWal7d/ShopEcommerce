@@ -3,25 +3,46 @@ import { useDispatch } from 'react-redux';
 import { deleteFavoriteProduct } from '../lib/favoriteproduct/favorite';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { MdDelete } from 'react-icons/md';
+import { AppDispatch } from '../lib/store'; // Import your AppDispatch type
+import { ThunkAction } from 'redux-thunk';
+import { UnknownAction } from 'redux';
+
+// Define your expected payload structure
+interface FavoriteProductPayload {
+  data?: unknown; // Replace with your actual data type
+}
 
 interface Props {
   productId: string;
-  onProductData?: (data: any) => void;
+  onProductData?: (data: FavoriteProductPayload['data']) => void;
 }
 
 export default function DeleteFavorite({ productId, onProductData }: Props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
     try {
       setLoading(true);
-      const { payload }: any = await dispatch<any>(deleteFavoriteProduct(productId));
-      onProductData?.(payload?.data);
-   
+      // Properly type the thunk action
+      const action = deleteFavoriteProduct(productId) as ThunkAction<
+        Promise<{ payload: FavoriteProductPayload }>,
+        unknown,
+        undefined,
+        UnknownAction
+      >;
       
-    } catch (error) {
-      console.error("Error in Deleting........:", error);
+      const response = await dispatch(action);
+      
+      if (response.payload?.data) {
+        onProductData?.(response.payload.data);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error in Deleting:", error.message);
+      } else {
+        console.error("Unknown error in Deleting");
+      }
     } finally {
       setLoading(false);
     }
@@ -33,7 +54,7 @@ export default function DeleteFavorite({ productId, onProductData }: Props) {
       className='text-red-600 rounded flex justify-center items-center cursor-pointer'
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && handleClick()} // For keyboard support
+      onKeyDown={(e) => e.key === 'Enter' && handleClick()}
     >
       {loading ? (
         <div className='flex justify-center p-5'>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { getonegetAllOrders } from '../lib/getAllOrders/getAllOrders'
+import { getAllgetAllOrders } from '../lib/getAllOrders/getAllOrders' // Changed to getAllgetAllOrders
 import Image from 'next/image'
 import { AppDispatch } from '../lib/store'
 
@@ -37,12 +37,18 @@ type Order = {
 export default function Page() {
     const dispatch = useDispatch<AppDispatch>();
     const [orders, setOrders] = useState<Order[]>([]);
-
     useEffect(() => {
         async function fetchOrders() {
-            const result = await dispatch(getonegetAllOrders());
-            const payload = result.payload as { data: Order[] };
-            setOrders(payload.data); // فقط مرة واحدة
+            try {
+                const result = await dispatch(getAllgetAllOrders());
+                if (getAllgetAllOrders.fulfilled.match(result)) {
+                    // Ensure the data matches the Order type
+                    const ordersData = result.payload?.data as Order[];
+                    setOrders(ordersData || []);
+                }
+            } catch (error) {
+                console.error("Failed to fetch orders:", error);
+            }
         }
 
         fetchOrders();

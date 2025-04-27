@@ -68,7 +68,7 @@ export const loginUser = createAsyncThunk<
         }
       }
       
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error?.message || 'حدث خطأ أثناء تسجيل الدخول'
       toast.error(errorMessage)
       return thunkAPI.rejectWithValue(errorMessage)

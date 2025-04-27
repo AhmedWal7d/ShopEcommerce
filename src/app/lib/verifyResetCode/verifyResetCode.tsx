@@ -2,8 +2,6 @@
 
 import apiRoutes from '@/app/__AllCommponent/utils/apiRoutes'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-// import { toast } from 'react-toast'
-import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 
 // ========= Interfaces ===========
@@ -56,7 +54,7 @@ export const verifyResetCodesUser = createAsyncThunk<
       window.location.href = '/ResetPassword' 
 
       return data
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error?.message || 'حدث خطأ أثناء تسجيل الدخول'
       toast.error(errorMessage)
       return thunkAPI.rejectWithValue(errorMessage)

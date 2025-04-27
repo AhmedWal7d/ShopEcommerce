@@ -12,14 +12,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  // تم تمديد الإعدادات الخاصة بـ Next.js و TypeScript
   ...compat.extends("next/core-web-vitals", "next/typescript"),
-  // تعطيل قاعدة @typescript-eslint/no-explicit-any
-  {
-    rules: {
-      "@typescript-eslint/no-explicit-any": "off", // إيقاف القاعدة التي تمنع استخدام any
-    },
-  },
 ];
 
 export default eslintConfig;

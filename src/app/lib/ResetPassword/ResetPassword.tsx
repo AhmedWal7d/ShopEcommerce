@@ -3,7 +3,6 @@
 import apiRoutes from '@/app/__AllCommponent/utils/apiRoutes'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 // import { toast } from 'react-toast'
-import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 
 // ========= Interfaces ===========

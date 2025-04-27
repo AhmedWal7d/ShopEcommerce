@@ -36,7 +36,7 @@ export const getAllcart = createAsyncThunk(
         items: res.data ,
         message: res.data.message,
       }
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error?.response?.data?.message || 'An error occurred while fetching the cart'
       toast.error(errorMessage)
       return thunkAPI.rejectWithValue(errorMessage)
@@ -67,7 +67,7 @@ export const Deletecart = createAsyncThunk(
       toast.success('Delete Success')
 
       return id
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error?.response?.data?.message || 'An error occurred while deleting cart item'
       toast.error(errorMessage)
       return thunkAPI.rejectWithValue(errorMessage)
@@ -100,7 +100,7 @@ export const Updatecartitem = createAsyncThunk(
       toast.success('Update Success')
 
       return res.data
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error?.response?.data?.message || 'An error occurred while updating cart item'
       toast.error(errorMessage)
       return thunkAPI.rejectWithValue(errorMessage)
@@ -112,7 +112,7 @@ export const Updatecartitem = createAsyncThunk(
 export const paymentcartitem = createAsyncThunk(
   'cart/paymentcartitem',
   async (
-    { id, url, formvalues }: { id: string[]; url: string; formvalues: { details: string; phone: string; city: string } },
+    { id, formvalues }: { id: string[]; url: string; formvalues: { details: string; phone: string; city: string } },
     thunkAPI
   ) => {
     const token = Cookies.get('token');
@@ -140,7 +140,7 @@ export const paymentcartitem = createAsyncThunk(
 
       toast.success('Payment Success');
       return res.data;
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error?.response?.data?.message || 'An error occurred during payment';
       toast.error(errorMessage);
       return thunkAPI.rejectWithValue(errorMessage);
@@ -176,14 +176,12 @@ const cartSlice = createSlice({
         state.isLoading = true
         state.isError = null
       })
-      .addCase(Deletecart.fulfilled, (state, action) => {
+      .addCase(Deletecart.fulfilled, (state) => {
         state.isLoading = false
-        const deletedId = action.payload
+       
         console.log("Before Delete:", state.cartData)
-        // if (state.cartData && Array.isArray(state.cartData)) {
-        //   // state.cartData = state.cartData.filter((item: any) => item._id !== deletedId)
-        //   console.log("After Delete:", state.cartData)
-        // }
+    
+    
       })
       
       .addCase(Deletecart.rejected, (state, action) => {
@@ -191,12 +189,12 @@ const cartSlice = createSlice({
         state.isError = action.payload as string
       })
 
-      // ✅ Update Cart Item
+    
       .addCase(Updatecartitem.pending, (state) => {
         state.isLoading = true
         state.isError = null
       })
-      .addCase(Updatecartitem.fulfilled, (state, action) => {
+      .addCase(Updatecartitem.fulfilled, (state) => {
         state.isLoading = false
         // You can update the specific item in cartData if needed
         // Example: update quantity if item exists

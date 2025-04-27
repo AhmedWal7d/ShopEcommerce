@@ -57,7 +57,7 @@ export const registerUser = createAsyncThunk<
       window.location.href = '/' 
 
       return data
-    } catch (error: any) {
+    } catch (error) {
       const errorMessage = error?.message || 'حدث خطأ أثناء تسجيل الدخول'
       toast.error(errorMessage)
       return thunkAPI.rejectWithValue(errorMessage)

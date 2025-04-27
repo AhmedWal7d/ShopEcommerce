@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { ReactNode } from 'react';
 
-export default function layout({ children }: any) {
+interface LayoutProps {
+    children: ReactNode;  // تحديد النوع المناسب للـ children
+}
+
+export default function Layout({ children }: LayoutProps) {
     return (
         <>
-            Navbar
+            <div>Navbar</div>
             {children}
-            footer
+            <div>Footer</div>
         </>
-    )
+    );
 }

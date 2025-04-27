@@ -1,10 +1,11 @@
 // components/GlobalLoader.tsx
 'use client'
 
+import { RootState } from '@/app/lib/store'
 import { useSelector } from 'react-redux'
 
 export default function GlobalLoader() {
-  const isLoading = useSelector((state: any) => state.loading.isLoading)
+  const isLoading = useSelector((state: RootState) => state.loading.isLoading)
   
 
   if (!isLoading) return null

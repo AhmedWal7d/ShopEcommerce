@@ -19,34 +19,21 @@ import { getoneproduct } from '@/app/lib/products/Products';
 import Slider from 'react-slick';
 import { FaStar } from 'react-icons/fa';
 import { BallTriangle } from 'react-loader-spinner';
-import Head from 'next/head';
 import { addToCart } from '@/app/lib/cart/cart';
-import { getAllcart, Updatecartitem } from '@/app/lib/cart/getAllCart';
-import { toast } from 'react-toastify';
-
-interface typedata {
-    title: string;
-    description: string;
-    price: number;
-    ratingsAverage: number;
-    images: string[];
 
 
-}
 
 
-const page = ({ params }: { params: Promise<{ id: string }> }) => {
-    const [quantity, setQuantity] = useState(2);
-    const [data, setdata] = useState<typedata | null>(null)
-
+const Page = ({ params }) => {
+    const [data, setData] = useState(null);
     const { id } = use(params);
-    const dispatch = useDispatch<any>();
+    const dispatch  = useDispatch();
 
     useEffect(() => {
         const fetchProduct = async () => {
             if (id) {
-                const response: any = await dispatch(getoneproduct(id));
-                setdata(response?.payload?.data)
+                const response = await dispatch(getoneproduct(id));
+                setData(response?.payload?.data)
             }
         };
         fetchProduct();
@@ -68,28 +55,15 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
                 dispatch(addToCart({ productId: id }));
             }
         } catch (error) {
+            console.log(error);
+            
         }
     }
-    let isloading = useSelector((state: any) => state?.product)
+    const isloading = useSelector((state) => state?.product)
 
 
 
-      async function updateqte(id: string, count: number) {
-        try {
-          await dispatch(Updatecartitem({ id, count }));
-      
-          const { payload }: any = await dispatch(getAllcart());
-          console.log(payload);
-          
-        //   setData(payload?.items?.data || []);
-        //   settotalCartPrice(payload?.items?.data?.totalCartPrice || 0);
-        } catch (error) {
-          toast.error('Update failed');
-          console.error('Update failed:', error);
-        }
-      }
 
-      console.log(data);
       
 
     return (
@@ -103,8 +77,7 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
                     radius={5}
                     color="oklch(60% .118 184.704)"
                     ariaLabel="ball-triangle-loading"
-                    wrapperStyle={{}}
-                    // wrapperClass=""
+              
                     visible={true}
                 />
             </div> : <div className='container'>
@@ -131,7 +104,7 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
                                     {...settings}
                                     className="w-full max-w-md"
                                 >
-                                    {data.images.map((img: string, index: number) => (
+                                    {data.images.map((img, index) => (
                                         <div key={index}>
                                             <img
                                                 src={img}
@@ -266,4 +239,4 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
     );
 };
 
-export default page;
+export default Page;

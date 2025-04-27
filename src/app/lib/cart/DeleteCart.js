@@ -7,14 +7,14 @@ import { toast } from 'react-toastify'
 import Cookies from 'js-cookie'
 
 const initialState = {
-  cartData: [] as any[], // 👈 هذا يحل المشكلة بسرعة
+  cartData: [],
   isLoading: false,
-  isError: null as string | null,
+  isError: null ,
 }
 
 export const Deletecart = createAsyncThunk(
     'cart/Deletecart',
-    async (id: string, thunkAPI) => {
+    async (id, thunkAPI) => {
       const token = Cookies.get('token')
   
       if (!token) {
@@ -38,7 +38,7 @@ export const Deletecart = createAsyncThunk(
           items: res.data || [],
           message: res.data.message,
         }
-      } catch (error: any) {
+      } catch (error) {
         const errorMessage =
           error?.response?.data?.message || 'An error occurred while fetching the cart'
         toast.error(errorMessage)
@@ -61,7 +61,7 @@ export const Deletecart = createAsyncThunk(
         })
    
         .addCase(Deletecart.rejected, (state, action) => {
-            state.isError = action.payload as string
+            state.isError = action.payload 
             state.isLoading = false
             toast.error(state.isError)
           })
@@ -70,7 +70,7 @@ export const Deletecart = createAsyncThunk(
             state.isError = null
             const deletedId = action.meta.arg // الـ id المرسل في الـ thunk
             if (state.cartData && Array.isArray(state.cartData)) {
-              state.cartData = state.cartData.filter((item: any) => item._id !== deletedId)
+              state.cartData = state.cartData.filter((item) => item._id !== deletedId)
             }
           })
           

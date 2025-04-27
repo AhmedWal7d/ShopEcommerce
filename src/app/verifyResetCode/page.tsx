@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { forgotPasswordsUser } from "../lib/forgotPasswords/forgotPasswords";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BallTriangle } from 'react-loader-spinner';
 import { verifyResetCodesUser } from "../lib/verifyResetCode/verifyResetCode";
+import { AppDispatch, RootState } from "../lib/store";
 
 // تعريف نوع البيانات للـ Form
 type forgotPasswordsFormInputs = {
@@ -13,11 +12,11 @@ type forgotPasswordsFormInputs = {
     resetCode: string;
 };
 
-const forgotPasswords = () => {
+const ForgotPasswords = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<forgotPasswordsFormInputs>();
 
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const onSubmit: SubmitHandler<forgotPasswordsFormInputs> = (data) => {
     dispatch(verifyResetCodesUser(data));
@@ -27,7 +26,7 @@ const forgotPasswords = () => {
     handleSubmit(onSubmit)();
   };
 
-  const { isLoading, isError } = useSelector((state: any) => state.verifyResetCodes);
+  const { isLoading } = useSelector((state: RootState) => state.verifyResetCodes);
 
 
 // console.log(isLoading);
@@ -107,4 +106,4 @@ const forgotPasswords = () => {
   );
 };
 
-export default forgotPasswords;
+export default ForgotPasswords;
