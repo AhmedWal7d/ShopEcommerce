@@ -1,11 +1,12 @@
 'use client'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllproduct } from '../lib/products/Products'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { AppDispatch, RootState } from '../lib/store'
 import PostHeart from '../heart/postheard'
 import { CiStar } from 'react-icons/ci'
 import Image from 'next/image'
+import { BallTriangle } from 'react-loader-spinner'
 
 type Product = {
   id: string;
@@ -27,7 +28,17 @@ export default function Page() {
   }, [dispatch])
 
   return (
-    <div>
+    <Suspense fallback={<>       <div className="flex justify-center mt-10 mb-10">
+                        <BallTriangle
+                          height={100}
+                          width={100}
+                          radius={5}
+                          color="oklch(60% .118 184.704)"
+                          ariaLabel="ball-triangle-loading"
+                          visible={true}
+                        />
+                      </div>  </>}>
+    
       <div className='bg-gray-100 grid lg:grid-cols-4 mt-15 md:grid-cols-2 sm:grid-cols-1'>
         {allproduct?.map((product: Product) => (
           <div className="px-2" key={product?.id} onClick={() => setSelectedProduct(product)}>
@@ -45,7 +56,7 @@ export default function Page() {
               </div>
 
               <div className="flex justify-center">
-                <Image
+                <img
                   src={product?.images[0]}
                   alt="product"
                   width={200}
@@ -79,7 +90,7 @@ export default function Page() {
           <div className="bg-white rounded-xl w-11/12 md:w-1/2 p-6 relative">
             <button className="absolute top-2 right-4 text-red-500 text-xl" onClick={() => setSelectedProduct(null)}>×</button>
             <h2 className="text-xl font-semibold mb-3">{selectedProduct.title}</h2>
-            <Image src={selectedProduct.images[0]} alt={selectedProduct.title} width={400} height={200} className="mx-auto object-contain h-40" />
+            <img src={selectedProduct.images[0]} alt={selectedProduct.title} width={400} height={200} className="mx-auto object-contain h-40" />
             <p className="mt-3">{selectedProduct.description}</p>
             <div className="flex justify-between mt-4">
               <span className="text-teal-600 text-lg font-bold">{selectedProduct.price} EGP</span>
@@ -92,6 +103,6 @@ export default function Page() {
           </div>
         </div>
       )}
-    </div>
+    </Suspense>
   )
 }
