@@ -80,9 +80,9 @@ export default function Contact() {
                         Send
                     </button>
                 </form>
-                <div className=" mx-auto">
+                <div className="min-h-screen mx-auto">
 
-                    <Image width={600} height={100} alt="" className="lg:h-[600px] sm:h-[0]  mt-5" src={imgcontact} />
+                    <Image width={600} height={100} alt="" className="h-[600px]  mt-5" src={imgcontact} />
                 </div>
 
 
