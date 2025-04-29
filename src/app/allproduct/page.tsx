@@ -5,7 +5,6 @@ import { Suspense, useEffect, useState } from 'react'
 import { AppDispatch, RootState } from '../lib/store'
 import PostHeart from '../heart/postheard'
 import { CiStar } from 'react-icons/ci'
-import Image from 'next/image'
 import { BallTriangle } from 'react-loader-spinner'
 
 type Product = {
