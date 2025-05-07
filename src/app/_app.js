@@ -1,12 +1,11 @@
 'use client'
 
 import { ThemeProvider } from 'next-themes'
-import { useRouter } from 'next/navigation' // أو 'next/router' إذا كنت في Pages Router
 import './globals.css'
 import { useEffect, useState } from 'react'
 
 export default function RootLayout({ children }) {
-  const router = useRouter()
+
   const [locale, setLocale] = useState('en')
 
   useEffect(() => {
