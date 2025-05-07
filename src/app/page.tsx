@@ -11,14 +11,14 @@ export default function Home() {
   return <>
 
     <SliderHome />
-    <MinSlider/>
-    <Banner/>
-    <CartsSlider/>
-    <MidSection/>
-    <CartsSlider/>
-    <LastBanner/>
-    <ScrollToTopButton/>
-    {/* <h1>Welcome</h1> */}
-    
+    <MinSlider />
+    <Banner />
+    <CartsSlider />
+    <MidSection />
+    <CartsSlider />
+    <LastBanner />
+    <ScrollToTopButton />
+
+
   </>
 }

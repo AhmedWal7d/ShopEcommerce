@@ -3,22 +3,30 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ClientLayout from "./ClientLayout";
 import GlobalLoader from "./__AllCommponent/GlobalLoader/GlobalLoader";
-// import img from "../../public/slider1.webp"
+import Provider from "./Provider";
+import { ThemeToggle } from "./ThemeToggle";
 export default function RootLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: { locale: string };
+}) {
+  const dir = params.locale === 'ar' ? 'rtl' : 'ltr';
+
   return (
-    <html lang="en">
+    <html lang={params.locale} dir={dir} suppressHydrationWarning>
       <head>
-        <title> Online Store </title>
+        <title>Online Store</title>
       </head>
       <body>
-        <ClientLayout>
-          <GlobalLoader />
-          {children}
-        </ClientLayout>
+        <Provider>
+          <ClientLayout>
+            <ThemeToggle />
+            <GlobalLoader />
+            {children}
+          </ClientLayout>
+        </Provider>
       </body>
     </html>
   );

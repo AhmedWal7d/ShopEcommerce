@@ -1,9 +1,34 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { translations as arTranslations } from  "../../../app/../translations/ar"
+import { translations as enTranslations  } from   "../../../app/../translations/en"
 
 export default function Footer() {
+
+
+
+    
+        const [language, setLanguage] = useState("en"); // اللغة الافتراضية هي الإنجليزية
+      
+        const translations = {
+          en: enTranslations,
+          ar: arTranslations,
+        };
+      
+          useEffect(() => {
+            // محاولة تحميل اللغة من localStorage
+            const storedLanguage = localStorage.getItem("language");
+            if (storedLanguage) {
+              setLanguage(storedLanguage);
+            }
+          }, []);
+      
+        const currentTranslations = translations[language];
+
+
     return (
         <>
             <footer className="bg-gray-100 mt-8">
@@ -21,18 +46,17 @@ export default function Footer() {
                         <div className="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-5 lg:gap-y-16">
                             <div className="col-span-2">
                                 <div>
-                                    <h2 className="text-2xl font-bold text-gray-900">Get the latest news!</h2>
+                                    <h2 className="text-2xl font-bold text-gray-900">{currentTranslations.getnews}</h2>
 
                                     <p className="mt-4 text-gray-500">
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non cupiditate quae nam
-                                        molestias.
+                                    {currentTranslations.exampleText}
                                     </p>
                                 </div>
                             </div>
 
                             <div className="col-span-2 lg:col-span-3 lg:flex lg:items-end">
                                 <form className="w-full">
-                                    <label htmlFor="UserEmail" className="sr-only"> Email </label>
+                                    <label htmlFor="UserEmail" className="sr-only">    {currentTranslations.email} </label>
 
                                     <div
                                         className="border border-gray-100 p-2 focus-within:ring-3 sm:flex sm:items-center sm:gap-4"
@@ -47,108 +71,108 @@ export default function Footer() {
                                         <button
                                             className="mt-1 w-full bg-teal-500 px-6 py-3 text-sm font-bold tracking-wide text-white uppercase transition-none hover:bg-teal-600 sm:mt-0 sm:w-auto sm:shrink-0"
                                         >
-                                            Sign Up
+                                          {currentTranslations.signUp}
                                         </button>
                                     </div>
                                 </form>
                             </div>
 
                             <div className="col-span-2 sm:col-span-1">
-                                <p className="font-medium text-gray-900">Services</p>
+                                <p className="font-medium text-gray-900">  {currentTranslations.Services} </p>
 
                                 <ul className="mt-6 space-y-4 text-sm">
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> 1on1 Coaching </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75">  {currentTranslations.coaching} </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Company Review </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.companyReview} </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Accounts Review </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.accountsReview} </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> HR Consulting </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.hrConsulting} </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> SEO Optimisation </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.seoOptimisation} </Link>
                                     </li>
                                 </ul>
                             </div>
 
                             <div className="col-span-2 sm:col-span-1">
-                                <p className="font-medium text-gray-900">Company</p>
+                                <p className="font-medium text-gray-900">{currentTranslations.Company}</p>
 
                                 <ul className="mt-6 space-y-4 text-sm">
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> About </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.about} </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Meet the Team </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75">{currentTranslations.team} </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Accounts Review </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75">{currentTranslations.accountsReview} </Link>
                                     </li>
                                 </ul>
                             </div>
 
                             <div className="col-span-2 sm:col-span-1">
-                                <p className="font-medium text-gray-900">Helpful Links</p>
+                                <p className="font-medium text-gray-900">{currentTranslations.title}</p>
 
                                 <ul className="mt-6 space-y-4 text-sm">
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Contact </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.contact} </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> FAQs </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.faqs} </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Live Chat </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.liveChat} </Link>
                                     </li>
                                 </ul>
                             </div>
 
                             <div className="col-span-2 sm:col-span-1">
-                                <p className="font-medium text-gray-900">Legal</p>
+                                <p className="font-medium text-gray-900"> {currentTranslations.title}</p>
 
                                 <ul className="mt-6 space-y-4 text-sm">
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Accessibility </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.accessibility}  </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Returns Policy </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75">{currentTranslations.returnsPolicy}  </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Refund Policy </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> {currentTranslations.refundPolicy} </Link>
                                     </li>
 
                                     <li>
                                         <Link  href="/" className="text-gray-700 transition hover:opacity-75">
-                                            Hiring-3 Statistics
+                                        {currentTranslations.hiringStatistics} 
                                         </Link>
                                     </li>
                                 </ul>
                             </div>
 
                             <div className="col-span-2 sm:col-span-1">
-                                <p className="font-medium text-gray-900">Downloads</p>
+                                <p className="font-medium text-gray-900">   {currentTranslations.title} </p>
 
                                 <ul className="mt-6 space-y-4 text-sm">
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> Marketing Calendar </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75">    {currentTranslations.marketingCalendar}  </Link>
                                     </li>
 
                                     <li>
-                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75"> SEO Infographics </Link>
+                                        <Link  href="/" className="text-gray-700 transition hover:opacity-75">    {currentTranslations.marketingCalendar}  </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -161,7 +185,7 @@ export default function Footer() {
                                         target="_blank"
                                         className="text-gray-700 transition hover:opacity-75"
                                     >
-                                        <span className="sr-only">Facebook</span>
+                                        <span className="sr-only">   {currentTranslations.facebook} </span>
 
                                         <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                             <path
@@ -180,7 +204,7 @@ export default function Footer() {
                                         target="_blank"
                                         className="text-gray-700 transition hover:opacity-75"
                                     >
-                                        <span className="sr-only">Instagram</span>
+                                        <span className="sr-only">{currentTranslations.instagram} </span>
 
                                         <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                             <path
@@ -199,7 +223,7 @@ export default function Footer() {
                                         target="_blank"
                                         className="text-gray-700 transition hover:opacity-75"
                                     >
-                                        <span className="sr-only">Twitter</span>
+                                        <span className="sr-only">{currentTranslations.twitter} </span>
 
                                         <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                             <path
@@ -216,7 +240,7 @@ export default function Footer() {
                                         target="_blank"
                                         className="text-gray-700 transition hover:opacity-75"
                                     >
-                                        <span className="sr-only">GitHub</span>
+                                        <span className="sr-only">{currentTranslations.gitHub} </span>
 
                                         <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                             <path
@@ -235,7 +259,7 @@ export default function Footer() {
                                         target="_blank"
                                         className="text-gray-700 transition hover:opacity-75"
                                     >
-                                        <span className="sr-only">Dribbble</span>
+                                        <span className="sr-only">{currentTranslations.dribbble} </span>
 
                                         <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                             <path
@@ -252,19 +276,19 @@ export default function Footer() {
 
                     <div className="mt-8 border-t border-gray-100 pt-8">
                         <div className="sm:flex sm:justify-between">
-                            <p className="text-xs text-gray-500">&copy; 2022. Company Name. All rights reserved.</p>
+                            <p className="text-xs text-gray-500">&copy; {currentTranslations.copyright} </p>
 
                             <ul className="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
                                 <li>
-                                    <Link  href="/" className="text-gray-500 transition hover:opacity-75"> Terms & Conditions </Link>
+                                    <Link  href="/" className="text-gray-500 transition hover:opacity-75"> {currentTranslations.terms}  </Link>
                                 </li>
 
                                 <li>
-                                    <Link  href="/" className="text-gray-500 transition hover:opacity-75"> Privacy Policy </Link>
+                                    <Link  href="/" className="text-gray-500 transition hover:opacity-75">{currentTranslations.privacy}  </Link>
                                 </li>
 
                                 <li>
-                                    <Link  href="/" className="text-gray-500 transition hover:opacity-75"> Cookies </Link>
+                                    <Link  href="/" className="text-gray-500 transition hover:opacity-75"> {currentTranslations.cookies}  </Link>
                                 </li>
                             </ul>
                         </div>

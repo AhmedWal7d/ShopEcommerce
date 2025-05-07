@@ -8,6 +8,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { getAllcart } from "@/app/lib/cart/getAllCart";
 import { getAllfavoriteproduct } from "@/app/lib/favoriteproduct/favorite";
+import { translations as arTranslations } from  "../../../../src/translations/ar"
+import { translations as enTranslations  } from  "../../../../src/translations/en"
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,12 +20,43 @@ export default function Navbar() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-
   useEffect(() => {
     setToken(Cookies.get("token") || null);
     setUsername(Cookies.get("useName") || null);
     setIsLoading(false);
   }, [dispatch]);
+
+
+  const translations = {
+    en: enTranslations,
+    ar: arTranslations,
+  };
+
+  const [language, setLanguage] = useState("en"); // اللغة الافتراضية هي الإنجليزية
+  const [direction, setDirection] = useState("ltr"); // الاتجاه الافتراضي هو LTR
+
+  useEffect(() => {
+    // محاولة تحميل اللغة من localStorage
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setLanguage(storedLanguage);
+      setDirection(storedLanguage === "ar" ? "rtl" : "ltr"); // تحديث الاتجاه بناءً على اللغة المحفوظة
+    }
+  }, []);
+
+  // التأكد من تغيير الاتجاه عند تغيير اللغة
+  useEffect(() => {
+    // تحديث الاتجاه في body عند تغيير اللغة
+    document.body.style.direction = direction;
+  }, [direction]);
+
+
+  const changeLanguage = (lang) => {
+    setLanguage(lang);
+    window.location.reload(); 
+    setDirection(lang === "ar" ? "rtl" : "ltr"); // تحديث الاتجاه بناءً على اللغة الجديدة
+    localStorage.setItem("language", lang); // حفظ اللغة في localStorage
+  };
 
   useEffect(() => {
     async function getCartData() {
@@ -66,12 +99,14 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-teal-600 fixed w-full z-10 top-0">
+    <header className="bg-teal-600 dark:bg-amber-700 fixed w-full z-10 top-0">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-12">
             <Link className="block text-white" href="#">
               <span className="sr-only">Home</span>
+
+            
               <svg
                 className="h-8"
                 viewBox="0 0 28 24"
@@ -97,8 +132,8 @@ export default function Navbar() {
                     }
                     href="/"
                   >
-                    {" "}
-                    Home{" "}
+               
+               {translations[language].home}
                   </Link>
                 </li>
                 <li>
@@ -111,7 +146,7 @@ export default function Navbar() {
                     href="/allproduct"
                   >
                  
-                    All Product
+                 {translations[language].allproduct}
                   </Link>
                 </li>
                 <li>
@@ -123,8 +158,7 @@ export default function Navbar() {
                     }
                     href="/aboutUs"
                   >
-                    {" "}
-                    About us{" "}
+                    {translations[language].aboutas}
                   </Link>
                 </li>
                 <li>
@@ -136,8 +170,7 @@ export default function Navbar() {
                     }
                     href="/FAQ"
                   >
-                    {" "}
-                    FAQ{" "}
+                {translations[language].faq}
                   </Link>
                 </li>
                 <li>
@@ -149,9 +182,16 @@ export default function Navbar() {
                     }
                     href="/contact"
                   >
-                    {" "}
-                    contact{" "}
+              
                   </Link>
+                  <select
+              value={language}
+              onChange={(e) => changeLanguage(e.target.value)}
+              className="bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md p-1 focus:outline-none"
+            >
+              <option value="en">English</option>
+              <option value="ar">العربية</option>
+            </select>
                 </li>
               </ul>
             </nav>
@@ -191,13 +231,13 @@ export default function Navbar() {
                 className="rounded-md bg-teal-700 px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-teal-800"
                 href="/login"
               >
-                Login
+                 {translations[language].login}
               </Link>
               <Link
                 className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 hover:bg-gray-200"
                 href="/register"
               >
-                Register
+                 {translations[language].register}
               </Link>
             </div>
           )}

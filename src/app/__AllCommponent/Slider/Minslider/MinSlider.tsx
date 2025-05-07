@@ -11,8 +11,25 @@ import img7 from '../../AllimgApp/slider7.png'
 import img8 from '../../AllimgApp/slider8.png'
 import img9 from '../../AllimgApp/slider9.png'
 
-export default function MinSlider() {
+import { translations as arTranslations } from  "../../../../../src/translations/ar"
+import { translations as enTranslations  } from   "../../../../../src/translations/en"
+import { useEffect, useState } from "react";
 
+
+export default function MinSlider() {
+    const [language, setLanguage] = useState("en"); // اللغة الافتراضية هي الإنجليزية
+  
+  useEffect(() => {
+    // محاولة تحميل اللغة من localStorage
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      setLanguage(storedLanguage);
+    }
+  }, []);
+  const translations = {
+    en: enTranslations,
+    ar: arTranslations,
+  };
     
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -77,8 +94,8 @@ function SampleNextArrow(props) {
     <Slider {...settings}>
       <div className="bg-red-200 rounded-2xl">
         <Image src={img2} alt="Slide 1" className="w-full h-auto rounded-3xl" />
-        <p className="fw-bold text-sm  text-center text-sm  font-bold text-teal-600">  
-          Wedding Offers
+        <p className="fw-bold text-sm  text-center   font-bold text-teal-600">  
+        {translations[language].weddingOffers}
         </p>
       </div>
       <div>
@@ -88,55 +105,55 @@ function SampleNextArrow(props) {
       <div>
         <Image src={img4} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Kitchen Appliances
+        {translations[language].kitchenAppliances}
         </p>
       </div>
       <div>
         <Image src={img5} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Small Appliances
+        {translations[language].smallAppliances}
         </p>
       </div>
       <div>
         <Image src={img6} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Kitchen Appliances
+        {translations[language].largeAppliances}
         </p>
       </div>
       <div>
         <Image src={img4} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Large Appliances
+        {translations[language].beauty}
         </p>
       </div>
       <div>
         <Image src={img7} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Health & Beauty
+        {translations[language].homeTools}
         </p>
       </div>
       <div>
         <Image src={img8} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Home Tools
+        {translations[language].largeAppliances}
         </p>
       </div>
       <div>
         <Image src={img5} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Small Appliances
+        {translations[language].electronics}
         </p>
       </div>
       <div>
         <Image src={img9} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Electronics
+        {translations[language].largeAppliances}
         </p>
       </div>
       <div>
         <Image src={img6} alt="Slide 1" className="w-full h-auto rounded-3xl" />
         <p className="fw-bold  text-center text-sm  font-bold text-teal-600">  
-          Kitchen Appliances
+        {translations[language].kitchenAppliances}
         </p>
       </div>
     </Slider>

@@ -41,6 +41,11 @@
 .slick-dots li.slick-active button:before{
     color: oklch(51.1% .096 186.391) !important;
 }
+@layer base{
+    body {
+        @apply dark:bg-gray-800 bg-white
+    }
+}
 
 @media (max-width: 768px) {
     .slick-prev,

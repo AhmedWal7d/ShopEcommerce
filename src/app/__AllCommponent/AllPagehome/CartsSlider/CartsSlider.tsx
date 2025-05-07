@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { CiStar } from 'react-icons/ci'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,6 +8,10 @@ import Slider from 'react-slick'
 import Link from 'next/link'
 import PostHeart from '@/app/heart/postheard'
 import { AppDispatch, RootState } from '@/app/lib/store'
+
+
+import { translations as arTranslations } from  "../../../../../src/translations/ar"
+import { translations as enTranslations  } from   "../../../../../src/translations/en"
 
 export default function CartsSlider() {
 
@@ -29,28 +33,6 @@ useEffect(() => {
   dispatch(getAllproduct());
 }, [dispatch]);
 
-  // function SampleNextArrow(props: any) {
-  //   const { className, style, onClick } = props;
-  //   return (
-  //     <div
-  //       className={className}
-  //       style={{ ...style, display: "block", background: "red", color: "red" }}
-  //       onClick={onClick}
-  //     />
-  //   );
-  // }
-
-  // function SamplePrevArrow(props: any) {
-  //   const { className, style, onClick } = props;
-  //   return (
-  //     <div
-  //       className={className}
-  //       style={{ ...style, display: "block", background: "green" }}
-  //       onClick={onClick}
-  //     />
-  //   );
-  // }
-  
   function SampleNextArrow(props: { className?: string; style?: React.CSSProperties; onClick?: () => void }) {
     const { className, style, onClick } = props;
     return (
@@ -109,11 +91,28 @@ useEffect(() => {
 
   };
 
+    const [language, setLanguage] = useState("en"); // اللغة الافتراضية هي الإنجليزية
+  
+    const translations = {
+      en: enTranslations,
+      ar: arTranslations,
+    };
+  
+      useEffect(() => {
+        // محاولة تحميل اللغة من localStorage
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage) {
+          setLanguage(storedLanguage);
+        }
+      }, []);
+  
+    const currentTranslations = translations[language];
+
 
   return (
     <div className=' mx-auto bg-gray-100 '>
-      <h1 className="text-4xl font-bold  text-center text-teal-600 mb-2 pt-10">Our Top Offers</h1>
-
+      <h1 className="text-4xl font-bold  text-center text-teal-600 mb-2 pt-10"> {currentTranslations.ourTopOffers}</h1>
+     
 
       <div className=' mx-auto container bg-gray-100 mt-10'>
         <Slider {...settings}>
@@ -122,12 +121,12 @@ useEffect(() => {
               <div className="rounded-2xl pb-3 px-4 shadow-sm bg-white text-sm font-sans flex flex-col justify-between">
                 <div className="flex items-start justify-between p-4">
                   <div className="space-y-1">
-                    <span className="bg-teal-600 text-white text-xs px-2 py-1 rounded-md">50% Off Interest</span><br />
+                    <span className="bg-teal-600 text-white text-xs px-2 py-1 rounded-md">{currentTranslations.Interest}</span><br />
                     <span className="bg-red-600 text-white text-xs w-25 px-2 py-1 mt-2 block rounded-md">
-                      {Math.max(product?.price - 150, 0)} EGP offer
+                      {Math.max(product?.price - 150, 0)}{currentTranslations.egpoffer}
                     </span>
                   </div>
-                  {/* Replace button with div */}
+                 
                   <div className="text-gray-500 hover:text-red-500 bg-blue-100 rounded-full p-1 mx-0 cursor-pointer">
                     <PostHeart productId={product?.id} />
                   </div>
@@ -148,8 +147,8 @@ useEffect(() => {
                     <h3 className="text-gray-800 font-medium mt-2 px-4 line-clamp-2 h-[48px]">{product?.title}</h3></div>
 
                   <div className="flex items-center gap-2 px-4 pt-0 mt-0">
-                    <span className="text-teal-600 font-bold text-lg">{product?.price} EGP</span>
-                    <span className="text-gray-400 line-through text-sm">{product?.price - 100} EGP</span>
+                    <span className="text-teal-600 font-bold text-lg">{product?.price} {currentTranslations.egp}</span>
+                    <span className="text-gray-400 line-through text-sm">{product?.price - 100} {currentTranslations.egp}</span>
                   </div>
 
                   <p className="text-xs px-4 pb-1 text-gray-600 line-clamp-2 h-[32px]">{product?.description}</p>
