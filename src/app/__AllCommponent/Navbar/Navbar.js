@@ -8,8 +8,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { getAllcart } from "@/app/lib/cart/getAllCart";
 import { getAllfavoriteproduct } from "@/app/lib/favoriteproduct/favorite";
-import { translations as arTranslations } from  "../../../../src/translations/ar"
-import { translations as enTranslations  } from  "../../../../src/translations/en"
+import { translations as arTranslations } from "../../../../src/translations/ar";
+import { translations as enTranslations } from "../../../../src/translations/en";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +25,6 @@ export default function Navbar() {
     setUsername(Cookies.get("useName") || null);
     setIsLoading(false);
   }, [dispatch]);
-
 
   const translations = {
     en: enTranslations,
@@ -50,10 +49,9 @@ export default function Navbar() {
     document.body.style.direction = direction;
   }, [direction]);
 
-
   const changeLanguage = (lang) => {
     setLanguage(lang);
-    window.location.reload(); 
+    window.location.reload();
     setDirection(lang === "ar" ? "rtl" : "ltr"); // تحديث الاتجاه بناءً على اللغة الجديدة
     localStorage.setItem("language", lang); // حفظ اللغة في localStorage
   };
@@ -102,11 +100,10 @@ export default function Navbar() {
     <header className="bg-teal-600 dark:bg-amber-700 fixed w-full z-10 top-0">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-12">
+          <div className="flex items-center gap-8">
             <Link className="block text-white" href="#">
               <span className="sr-only">Home</span>
 
-            
               <svg
                 className="h-8"
                 viewBox="0 0 28 24"
@@ -118,7 +115,16 @@ export default function Navbar() {
                   fill="currentColor"
                 />
               </svg>
+              
             </Link>
+            <select
+                value={language}
+                onChange={(e) => changeLanguage(e.target.value)}
+                className="bg-white dark:bg-gray-800 px-5  text-gray-500 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md p-1 focus:outline-none"
+              >
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+              </select>
           </div>
           <div className="hidden md:block">
             <nav aria-label="Global">
@@ -132,8 +138,7 @@ export default function Navbar() {
                     }
                     href="/"
                   >
-               
-               {translations[language].home}
+                    {translations[language].home}
                   </Link>
                 </li>
                 <li>
@@ -145,8 +150,7 @@ export default function Navbar() {
                     }
                     href="/allproduct"
                   >
-                 
-                 {translations[language].allproduct}
+                    {translations[language].allproduct}
                   </Link>
                 </li>
                 <li>
@@ -170,7 +174,7 @@ export default function Navbar() {
                     }
                     href="/FAQ"
                   >
-                {translations[language].faq}
+                    {translations[language].faq}
                   </Link>
                 </li>
                 <li>
@@ -181,17 +185,7 @@ export default function Navbar() {
                         : " py-2.5 px-1.5 rounded-lg text-white font-bold"
                     }
                     href="/contact"
-                  >
-              
-                  </Link>
-                  <select
-              value={language}
-              onChange={(e) => changeLanguage(e.target.value)}
-              className="bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md p-1 focus:outline-none"
-            >
-              <option value="en">English</option>
-              <option value="ar">العربية</option>
-            </select>
+                  ></Link>
                 </li>
               </ul>
             </nav>
@@ -231,17 +225,17 @@ export default function Navbar() {
                 className="rounded-md bg-teal-700 px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-teal-800"
                 href="/login"
               >
-                 {translations[language].login}
+                {translations[language].login}
               </Link>
               <Link
                 className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 hover:bg-gray-200"
                 href="/register"
               >
-                 {translations[language].register}
+                {translations[language].register}
               </Link>
+       
             </div>
           )}
-
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -330,12 +324,11 @@ export default function Navbar() {
                     </div>
                   </Link>
                   <Link href="/cart" className="text-white relative mt-5 mx-4">
-                  <FiShoppingCart size={30} />
+                    <FiShoppingCart size={30} />
                     <div className="badge w-[20px] h-[20px] text-xs bg-teal-900 rounded-full text-center absolute -top-2 -left-2  text-white">
-                    {countitem || 0}
+                      {countitem || 0}
                     </div>
                   </Link>
-
                 </div>
 
                 <select
